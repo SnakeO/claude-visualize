@@ -6,14 +6,14 @@
     "name": "snakeo"
   },
   "metadata": {
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "plugins": [
     {
       "name": "visualize",
       "source": "./plugins/visualize",
       "description": "Turn a branch, ticket, or codebase question into a rich interactive HTML artifact via /visualize",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "development"
     }
   ]

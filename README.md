@@ -17,6 +17,8 @@ Claude researches the subject (diffs, tickets, code paths), collects real contra
 - **Plain English leading every section** — written for a smart teammate from another team, not documentation
 - **One protagonist entity** traced end to end so the reader accumulates familiarity
 - **Real data examples everywhere** — sample requests/responses, branch-logic tables with example values, filled-in schema rows, literal error bodies
+- **Syntax-colored code samples** — an inlined tokenizer (CSP forbids CDN highlighters) colors JSON and HTTP blocks in both light and dark themes
+- **Per-endpoint request/response cards** for API subjects — side-by-side payloads covering the happy path plus empty, validation (422), throttle (429), and auth (401) variants, with load-bearing fields annotated
 - **Real screenshots** (desktop/mobile switchers, before/after comparisons) when the subject has a UI surface
 - **A glossary** of every internal codename, plus honest SHIPPED / IN REVIEW / PLANNED / BUG status chips
 - **Light and dark themes**, Mermaid diagrams, collapsible detail blocks, copy buttons
