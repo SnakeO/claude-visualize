@@ -68,6 +68,18 @@ Hard constraints (CSP): fully self-contained - no CDN scripts, external fonts, o
 4. **Glossary.** Every codename gets a plain-English definition, ideally with an example value.
 5. **Honest state.** Mark what is shipped, in review, planned, or known-broken. Show file references as `path/to/file.ext:123` so an engineer can jump in.
 
+### Syntax coloring (mandatory)
+
+Every code sample in the artifact - JSON payloads, HTTP request/response lines, code blocks - must be syntax-colored. A monochrome `<pre>` block is a bug, not a style choice. CSP forbids CDN highlighter libraries, so inline a small tokenizer (a few dozen lines of JS) and run it over every code block:
+
+- **JSON**: HTML-escape the text BEFORE tokenizing, then color in ONE regex pass so digits inside strings never double-match: `/("(?:[^"\\]|\\.)*")(\s*:)?|\b(true|false|null)\b|-?\b\d+(?:\.\d+)?\b/g` with a replace callback - a string followed by a colon -> key span, a string alone -> string span, `true`/`false`/`null` -> literal span, anything else -> number span.
+- **HTTP blocks**: match per line - request lines (`GET|POST|PUT|PATCH|DELETE <path>`) get a verb-colored method span (GET green, POST blue, DELETE red) and a bold path; `HTTP/...` status lines bold; `Header-Name:` lines muted.
+- **Token colors** are CSS custom properties with distinct values for light and dark themes, wired through the same `prefers-color-scheme` + `:root[data-theme=...]` mechanism as the rest of the page.
+
+### Endpoint reference (when the subject exposes API endpoints)
+
+Give every endpoint its own card with side-by-side REQUEST and RESPONSE blocks (a two-column grid that stacks on narrow screens). Cover not just the happy path but the meaningful variants: empty/None states, validation failures with the 422 body verbatim, throttling (429 with `Retry-After`), and auth (401). Under each card, a short annotations list calls out the load-bearing fields - what the reader must notice, not a re-description of every key. Payloads are pretty-printed multi-line JSON, syntax-colored per the rules above, and each payload is defined exactly ONCE - walkthrough sections reference the cards rather than repeating payloads.
+
 ### Interactivity menu (use what serves the content, skip what does not)
 
 - Sticky section nav or tab bar for multi-act structure
@@ -90,4 +102,4 @@ Publish with the Artifact tool (concise `<title>` in the HTML, one-sentence `des
 
 ## Quality bar
 
-Before publishing, self-check: could someone who has never seen this code follow the story using only the plain-English paragraphs and the examples? Does every concept have at least one concrete data example? Does the worked example use the same protagonist throughout? Are both themes legible? If the subject has a UI, are there real screenshots (with desktop/mobile and before/after switchers where applicable), and is the total page under the 16MB cap? Do screenshots show only seed/fixture data? If any answer is no, fix it first.
+Before publishing, self-check: could someone who has never seen this code follow the story using only the plain-English paragraphs and the examples? Does every concept have at least one concrete data example? Does the worked example use the same protagonist throughout? Are both themes legible? Is every code sample syntax-colored (in both themes), with no monochrome `<pre>` blocks left? If the subject exposes API endpoints, does each one have a card covering the meaningful request/response variants, with each payload defined exactly once? If the subject has a UI, are there real screenshots (with desktop/mobile and before/after switchers where applicable), and is the total page under the 16MB cap? Do screenshots show only seed/fixture data? If any answer is no, fix it first.

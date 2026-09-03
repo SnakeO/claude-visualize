@@ -1,6 +1,6 @@
 {
   "name": "visualize",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Turn a branch, ticket, or free-form codebase question into a rich, interactive HTML artifact a teammate can actually understand",
   "author": {
     "name": "snakeo"
